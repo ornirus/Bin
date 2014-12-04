@@ -1,51 +1,65 @@
-package co.slzr;
+package io.github.ornirus;
 
 /**
- * Created by AlexanderSelzer1 on 26.11.14.
+ * Created by User on 12/4/14.
  */
 
-public class Binary {
-    private int[] bits = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
-    Binary(String input) {
-        for (int i = (input.length() - 1), j = (bits.length - 1); i >= 0; i--, j--) {
-            char bit = input.charAt(i);
+public class Binary
+{
+    private int[] binary = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+
+    Binary (int dec) {
+        for (int biNum = binary.length - 1; biNum >= 0; biNum--) {
+            binary[biNum] = dec % 2;
+            dec = dec / 2;
+        }
+
+        showBinary();
+    }
+
+    Binary(String biInput) {
+        for (int l = (biInput.length() - 1 ), j = (binary.length - 1); l >= 0; l--, j--) {
+            char bit = biInput.charAt(l);
 
             if (bit == '0') {
-                bits[j] = 0;
+                binary[j] = 0;
             }
+
             else if (bit == '1') {
-                bits[j] = 1;
+                binary[j] = 1;
             }
         }
     }
 
-    Binary(int input) {
-        for (int i = (bits.length - 1); i >= 0; i--) {
-            bits[i] = input % 2;
-            input = input / 2;
+    public String showBinary() {
+        String ans = "";
+        for (int biNum = binary.length - 1; biNum >= 0; biNum--) {
+            ans = binary[biNum] + ans;
         }
+        System.out.println(ans);
+        return ans;
+    }
+
+    public int toDecimal() {
+        int decimal = 0;
+        int i = 0;
+        for (int biNum = binary.length - 1, m = 1; biNum >= 0; biNum--, m = m * 2) {
+            i = binary[biNum];
+            i = i * m;
+            decimal = decimal + i;
+        }
+        return decimal;
     }
 
     public String toString() {
-        String output = "";
+        String out = "";
 
-        for (int bit : bits) {
-            output += bit;
+        for (int bit : binary) {
+            out += bit;
         }
 
-        return output;
-    }
-
-    public int toInt() {
-        int output = 0;
-
-        for (int i = (bits.length - 1), j = 0; i >= 0; i--, j++) {
-            if (bits[i] == 1) {
-                output += Math.pow(2, j);
-            }
-        }
-
-        return output;
+        return out;
     }
 }
